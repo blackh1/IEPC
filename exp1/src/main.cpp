@@ -54,5 +54,6 @@ const unsigned char sample1[] = {'a', 'b', 'c', 0};
 	    printf("0x%x  ", hash_value[i]);
 	}
 	printf("\n");
+	cout << "cmake so difficult";
   return 0;
 }

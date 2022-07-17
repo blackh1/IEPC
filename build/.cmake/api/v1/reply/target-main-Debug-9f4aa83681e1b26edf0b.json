@@ -25,13 +25,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 10,
+				"line" : 11,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 2,
+				"line" : 3,
 				"parent" : 0
 			}
 		]
@@ -69,8 +69,18 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-rdynamic",
+				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 0,
+				"fragment" : "-lssl",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 0,
+				"fragment" : "-lcrypto",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"

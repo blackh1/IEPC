@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++11 -rdynamic CMakeFiles/main.dir/main.o -o /home/blackhole/course/IEPC/exp1/src/bin/main 

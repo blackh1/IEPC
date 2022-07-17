@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.13)
 aux_source_directory(. SRC_LIST)
 include_directories(../include)
 
