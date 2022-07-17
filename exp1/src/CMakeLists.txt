@@ -1,0 +1,10 @@
+aux_source_directory(. SRC_LIST)
+include_directories(../include)
+
+# add_definitions("-std=c++11 -lssl -lcrypto")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L../../include/ssl/include")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lssl")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lcrypto")
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+add_executable(main ${SRC_LIST})
