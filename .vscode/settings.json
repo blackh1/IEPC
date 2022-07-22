@@ -1,4 +1,7 @@
 {
   "C_Cpp.errorSquiggles": "Enabled",
-  "cmake.sourceDirectory": "${workspaceFolder}/exp1"
+  "cmake.sourceDirectory": "${workspaceFolder}/exp1",
+  "files.associations": {
+    "iostream": "cpp"
+  }
 }

@@ -1,59 +1,107 @@
 #include "../../thirdparty/ssl/include/openssl/evp.h"
 #include <iostream>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define Digest_length 32
+#define Compare_byte 2
+
 using namespace std;
 
-int sm3_hash(const unsigned char *message, size_t len, unsigned char *hash, unsigned int *hash_len)
-{
-    EVP_MD_CTX *md_ctx;
-    const EVP_MD *md;
-    md = EVP_sm3();
-    md_ctx = EVP_MD_CTX_new();
-    EVP_DigestInit_ex(md_ctx, md, NULL);
-    EVP_DigestUpdate(md_ctx, message, len);
-    EVP_DigestFinal_ex(md_ctx, hash, hash_len);
-    EVP_MD_CTX_free(md_ctx);
-    return 0;
+const unsigned char allChar[95] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+
+int sm3_hash_openssl(uint8_t *dgst,const void *msg,size_t len){
+	int res=0;
+	const EVP_MD *md=EVP_get_digestbyname("sm3");
+	EVP_MD_CTX *mdctx=EVP_MD_CTX_new();
+	if(!mdctx)	goto done;
+
+	EVP_DigestInit_ex(mdctx,md,NULL);
+	EVP_DigestUpdate(mdctx,msg,len);
+	res=EVP_DigestFinal_ex(mdctx,dgst,NULL);
+
+done:
+	EVP_MD_CTX_free(mdctx);
+	return res;
 }
+
+void output(uint8_t *out){
+	for(int i=0;i<Digest_length;i++){
+		printf("%02x",out[i]);
+	}
+	printf("\n");
+}
+
+void msg_init(char *from,uint8_t *dst){
+	int len=strlen(from);
+	for(int i=0;i<len;i++){
+		dst[i]=from[i];
+	}
+}
+
+
+
+void randstr(char *str, const int len)
+{
+	// srand(time(NULL));
+	int i;
+	for (i = 0; i < len; ++i)
+	{
+		switch ((rand() % 3))
+		{
+		case 1:
+			str[i] = 'A' + rand() % 26;
+			break;
+		case 2:
+			str[i] = 'a' + rand() % 26;
+			break;
+		default:
+			str[i] = '0' + rand() % 10;
+			break;
+		}
+	}
+	str[++i] = '\0';
+}
+
 int main(){
-const unsigned char sample1[] = {'a', 'b', 'c', 0};
-	unsigned int sample1_len = strlen((char *)sample1);
-	const unsigned char sample2[] = {0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64,
-                                         0x61, 0x62, 0x63, 0x64, 0x61, 0x62, 0x63, 0x64};
-	unsigned int sample2_len = sizeof(sample2);
-	unsigned char hash_value[64];
-	unsigned int i, hash_len;
+	clock_t start,end;
+	srand((unsigned int)time(NULL));
+	uint8_t dgst1[32],dgst2[32];
+	char *from1=new char[32];
+	char *from2=new char[32];
+	uint8_t *msg1=new uint8_t[32],*msg2=new uint8_t[32];
+	unsigned long long count=0;
+	start=clock();
+	while(true){
+		randstr(from1,31);
+		int len1=strlen(from1);
+		msg_init(from1,msg1);
+		sm3_hash_openssl(dgst1,msg1,len1);
+		randstr(from2,31);
+		int len2=strlen(from2);
+		msg_init(from2,msg2);
+		sm3_hash_openssl(dgst2,msg2,len2);
+		count++;
+		if(count%5000000==0){
+			cout << endl<<"count:"<<count<<endl;
+		}
+		if(!memcmp(dgst1,dgst2,Compare_byte)){
+			printf("count is %lld\n",count);
+			printf("Digest1 is:");
+			output(dgst1);
+			printf("Digest2 is:");
+			output(dgst2);
 
-	sm3_hash(sample1, sample1_len, hash_value, &hash_len);
-	printf("raw data: %s\n", sample1);
-	printf("hash length: %d bytes.\n", hash_len);
-	printf("hash value:\n");
-	for (i = 0; i < hash_len; i++)
-	{
-	    printf("0x%x  ", hash_value[i]);
+			printf("Message1 is:");
+			output(msg1);
+			printf("Message2 is:");
+			output(msg2);
+			break;
+		}
 	}
-	printf("\n\n");
-
-	sm3_hash(sample2, sample2_len, hash_value, &hash_len);
-	printf("raw data:\n");
-	for (i = 0; i < sample2_len; i++)
-	{
-	    printf("0x%x  ", sample2[i]);
-	}
-	printf("\n");
-	printf("hash length: %d bytes.\n", hash_len);
-	printf("hash value:\n");
-	for (i = 0; i < hash_len; i++)
-	{
-	    printf("0x%x  ", hash_value[i]);
-	}
-	printf("\n");
-	cout << "cmake so difficult";
-  return 0;
+	end=clock();
+	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+	cout << "birthday attack front :"<<Compare_byte*8<<"bit(s)"<<endl;
 }
