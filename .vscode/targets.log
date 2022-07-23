@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul 23 18:00:12 2022
+# Make data base, printed on Sat Jul 23 18:02:28 2022
 
 # Variables
 
@@ -133,7 +133,7 @@ _ = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-ae6f43cb-4b28-4b93-ad3c-4e4e240e9a0c.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0d04b31e-b1bf-44b6-badd-5feddb50abe2.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -213,12 +213,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 176 B / avg = 8 B
-# current buf: size = 8162 B / used = 176 B / count = 20 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 20 / storage = 191 B / avg = 9 B
+# current buf: size = 8162 B / used = 191 B / count = 20 / avg = 9 B
 
 # strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
 # Load=20/8192=0%, Rehash=0, Collisions=0/23=0%
-# Finished Make data base on Sat Jul 23 18:00:12 2022
+# Finished Make data base on Sat Jul 23 18:02:28 2022
 
  
