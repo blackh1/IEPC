@@ -847,7 +847,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "exp1"
+			"value" : "birthday_attack_sm3"
 		},
 		{
 			"name" : "CMAKE_PROJECT_VERSION",
@@ -1188,6 +1188,42 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
+		},
+		{
+			"name" : "birthday_attack_sm3_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/blackhole/course/IEPC/build"
+		},
+		{
+			"name" : "birthday_attack_sm3_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "birthday_attack_sm3_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/blackhole/course/IEPC/exp1"
 		},
 		{
 			"name" : "exp1_BINARY_DIR",
