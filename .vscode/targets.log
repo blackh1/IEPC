@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 22 15:39:18 2022
+# Make data base, printed on Sat Jul 23 17:42:29 2022
 
 # Variables
 
@@ -93,7 +93,7 @@ MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/d/Programs/VMware/bin/:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/d/python3.9/Scripts/:/mnt/d/python3.9/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/d/Programs/Git/cmd:/mnt/d/Programs/Xseries/XShell/:/mnt/d/Programs/Xseries/Xftp/:/mnt/d/Go/bin:/mnt/c/Users/Blackhole/AppData/Local/Microsoft/WindowsApps:/mnt/d/Microsoft VS Code/bin:/mnt/d/JetBrains/PyCharm 2022.1.3/bin:/mnt/c/Users/Blackhole/.dotnet/tools:/mnt/d/Programs/MinGW/bin:/mnt/c/Users/Blackhole/go/bin
+PATH = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/d/Programs/VMware/bin/:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/d/python3.9/Scripts/:/mnt/d/python3.9/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/d/Programs/Git/cmd:/mnt/d/Programs/Xseries/XShell/:/mnt/d/Programs/Xseries/Xftp/:/mnt/d/Go/bin:/mnt/c/Users/Blackhole/AppData/Local/Microsoft/WindowsApps:/mnt/d/Microsoft VS Code/bin:/mnt/d/JetBrains/PyCharm 2022.1.3/bin:/mnt/c/Users/Blackhole/.dotnet/tools:/mnt/d/Programs/MinGW/bin:/mnt/c/Users/Blackhole/go/bin:/mnt/d/JetBrains/GoLand 2022.1.4/bin
 # default
 MAKEFILES := 
 # automatic
@@ -133,7 +133,7 @@ _ = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-2384fa54-c50c-46f3-8da1-fe9c199621f5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0ca9d251-792f-4dcd-b653-4d393c65b306.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -219,6 +219,6 @@ GNUmakefile:
 # strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
 # Load=20/8192=0%, Rehash=0, Collisions=0/23=0%
-# Finished Make data base on Fri Jul 22 15:39:18 2022
+# Finished Make data base on Sat Jul 23 17:42:29 2022
 
  

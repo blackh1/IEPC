@@ -1,17 +1,15 @@
-#include "../../thirdparty/ssl/include/openssl/evp.h"
+#include "openssl/evp.h"
 #include <iostream>
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
 
 #define Digest_length 32
-#define Compare_byte 2
+#define Compare_byte 3		//bytes want to attack
 
 using namespace std;
 
-const unsigned char allChar[95] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
-
-
+//simple sm3 using openssl
 int sm3_hash_openssl(uint8_t *dgst,const void *msg,size_t len){
 	int res=0;
 	const EVP_MD *md=EVP_get_digestbyname("sm3");
@@ -27,6 +25,7 @@ done:
 	return res;
 }
 
+//simple output function
 void output(uint8_t *out){
 	for(int i=0;i<Digest_length;i++){
 		printf("%02x",out[i]);
@@ -34,6 +33,7 @@ void output(uint8_t *out){
 	printf("\n");
 }
 
+//change message from char to uint8
 void msg_init(char *from,uint8_t *dst){
 	int len=strlen(from);
 	for(int i=0;i<len;i++){
@@ -42,7 +42,7 @@ void msg_init(char *from,uint8_t *dst){
 }
 
 
-
+//generate random string
 void randstr(char *str, const int len)
 {
 	// srand(time(NULL));
@@ -74,7 +74,9 @@ int main(){
 	uint8_t *msg1=new uint8_t[32],*msg2=new uint8_t[32];
 	unsigned long long count=0;
 	start=clock();
+	//start attack
 	while(true){
+		//generate and hash
 		randstr(from1,31);
 		int len1=strlen(from1);
 		msg_init(from1,msg1);
@@ -83,10 +85,12 @@ int main(){
 		int len2=strlen(from2);
 		msg_init(from2,msg2);
 		sm3_hash_openssl(dgst2,msg2,len2);
+		//print attempt times
 		count++;
 		if(count%5000000==0){
 			cout << endl<<"count:"<<count<<endl;
 		}
+		//compare if equal
 		if(!memcmp(dgst1,dgst2,Compare_byte)){
 			printf("count is %lld\n",count);
 			printf("Digest1 is:");

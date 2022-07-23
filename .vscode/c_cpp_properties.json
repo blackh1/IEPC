@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/**"
+                "${workspaceFolder}/thirdparty/**"
             ],
             "defines": [],
             "cStandard": "c17",
