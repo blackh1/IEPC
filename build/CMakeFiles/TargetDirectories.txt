@@ -1,5 +1,0 @@
-/home/blackhole/course/IEPC/build/CMakeFiles/edit_cache.dir
-/home/blackhole/course/IEPC/build/CMakeFiles/rebuild_cache.dir
-/home/blackhole/course/IEPC/build/src/CMakeFiles/main.dir
-/home/blackhole/course/IEPC/build/src/CMakeFiles/edit_cache.dir
-/home/blackhole/course/IEPC/build/src/CMakeFiles/rebuild_cache.dir

@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/blackhole/course/IEPC/build/src",
-  "command": "/usr/bin/g++  -I/home/blackhole/course/IEPC/exp1/src/../include  -std=c++11 -lssl -lcrypto -g -o CMakeFiles/main.dir/main.cpp.o -c /home/blackhole/course/IEPC/exp1/src/main.cpp",
-  "file": "/home/blackhole/course/IEPC/exp1/src/main.cpp"
-}
-]

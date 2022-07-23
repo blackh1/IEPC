@@ -1,1 +1,0 @@
-/usr/bin/g++  -std=c++11 -lssl -lcrypto -g CMakeFiles/main.dir/main.cpp.o -o /home/blackhole/course/IEPC/exp1/bin/main  -lssl -lcrypto 
