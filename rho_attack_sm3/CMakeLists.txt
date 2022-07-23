@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.13)
+project(rho_attack_sm3 VERSION 1.0)
+add_subdirectory(./src)
+link_directories("../thirdparty/ssl/lib64")
+include_directories("../thirdparty/ssl/include/openssl")
+target_link_libraries(main ssl)
+target_link_libraries(main crypto)
