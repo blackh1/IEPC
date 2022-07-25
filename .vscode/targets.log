@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 25 14:18:05 2022
+# Make data base, printed on Mon Jul 25 14:31:08 2022
 
 # Variables
 
@@ -101,7 +99,7 @@ MAKEFILES :=
 # automatic
 ?F = $(notdir $?)
 # environment
-NAME = LAPTOP-LU3CEK55
+NAME = Blackhole
 # environment
 HOSTTYPE = x86_64
 # environment
@@ -111,7 +109,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 LESS = -R
 # environment
-WSL_INTEROP = /run/WSL/3925_interop
+WSL_INTEROP = /run/WSL/11_interop
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -133,7 +131,7 @@ _ = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-535c1023-bf85-4776-8d8d-e5c801051883.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-7322dc80-6b3f-4e3b-a8b6-b360009f9ed8.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -219,6 +217,8 @@ GNUmakefile:
 # strcache performance: lookups = 21 / hit rate = 14%
 # hash-table stats:
 # Load=18/8192=0%, Rehash=0, Collisions=0/21=0%
-# Finished Make data base on Mon Jul 25 14:18:05 2022
+# Finished Make data base on Mon Jul 25 14:31:08 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+
