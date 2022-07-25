@@ -80,8 +80,27 @@ void randstr(char *str, const int len)
 	str[++i] = '\0';
 }
 
+/******************************
+ * 函数名：	extension_attack
+ * 描述：		输入初始消息和拓展消息，输出拓展之后的hash值
+******************************/
+void extension_attack(){
+
+}
+
 int main(){
+	clock_t start,end;
 	srand((unsigned int)time(NULL));
+	int length=rand()%512+64;
+	char *from=new char[length+1];
+	char *exten_msg=(char*)"this is length extension attack.";
+	int exten_length=strlen(exten_msg);
+	uint8_t *msg=new uint8_t[length+1];
+	randstr(from,length);
+	msg_init(from,msg);
 	uint8_t dgst1[Digest_length],dgst2[Digest_length];
-	
+	start=clock();
+
+	end=clock();
+	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
 }
