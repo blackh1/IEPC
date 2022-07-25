@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 25 13:23:16 2022
+# Make data base, printed on Mon Jul 25 14:07:55 2022
 
 # Variables
 
@@ -111,7 +111,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 LESS = -R
 # environment
-WSL_INTEROP = /run/WSL/1339_interop
+WSL_INTEROP = /run/WSL/2735_interop
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -133,7 +133,7 @@ _ = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-eb53adfb-3d44-4724-9f47-cb5b879f1de9.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-c5182d4a-67a6-477e-910a-d4e35ea37ce1.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -219,6 +219,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Mon Jul 25 13:23:16 2022
+# Finished Make data base on Mon Jul 25 14:07:55 2022
 
  
