@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define Digest_length 32
-#define Compare_byte 3		//bytes want to attack
+#define Compare_byte 1		//bytes want to attack
 
 using namespace std;
 
@@ -85,12 +85,13 @@ int main(){
 	clock_t start,end;
 	srand((unsigned int)time(NULL));
 	uint8_t dgst1[32],dgst2[32];
-	char *from1=new char[32];
-	uint8_t *msg1=new uint8_t[32],*msg2=new uint8_t[32];
+	int len1=rand()%128+32;
+	char *from1=new char[len1+1];
+	uint8_t *msg1=new uint8_t[len1+1],*msg2=new uint8_t[len1+1];
 	unsigned long long count=0;
 	start=clock();
-	randstr(from1,31);
-	int len1=strlen(from1);
+	randstr(from1,len1);
+	// from1="hello,here is guanjun.this is a sm3 rho attack exp.";
 	msg_init(from1,msg1);
 	//走一步
 	sm3_hash_openssl(dgst1,msg1,len1);
