@@ -2,13 +2,13 @@
 
 Innovation and Entrepreneurship Practice Course
 
-- [Project-List](*Projects-List)
-  - [SM3](*SM3)
-  - [SM2](*SM2)
-  - [Bitcoin](*Bitcoin)
-  - [Ethernet](*Ethernet)
-  - [Real-world cryptanalysis](*Real-world-cryptanalysis)
-  - [Real-world-z-SNARKs](*Real-world-zk-SNARKs)
+- [Project-List](#projects-list)
+  - [SM3](#sm3)
+  - [SM2](#sm2)
+  - [Bitcoin](#bitcoin)
+  - [Ethernet](#ethernet)
+  - [Real-world cryptanalysis](#real-world-cryptanalysis)
+  - [Real-world-z-SNARKs](#real-world-zk-snarks)
 
 ## Projects-List
 
