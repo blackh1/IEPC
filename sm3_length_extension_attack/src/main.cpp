@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define Digest_length 32
-#define Compare_byte 1		//bytes want to attack
+#define Compare_byte 3		//bytes want to attack
 
 using namespace std;
 
@@ -70,22 +70,21 @@ int main(){
 	srand((unsigned int)time(NULL));
 	uint8_t dgst1[32],dgst2[32];
 	char *from1=new char[32];
+	char *from2=new char[32];
 	uint8_t *msg1=new uint8_t[32],*msg2=new uint8_t[32];
 	unsigned long long count=0;
 	start=clock();
-	randstr(from1,31);
-	int len1=strlen(from1);
-	msg_init(from1,msg1);
-	sm3_hash_openssl(dgst1,msg1,len1);
-	sm3_hash_openssl(dgst2,msg1,len1);
-	sm3_hash_openssl(dgst2,dgst2,Digest_length);
 	//start attack
 	while(true){
 		//generate and hash
-		sm3_hash_openssl(dgst1,dgst1,Digest_length);
-		sm3_hash_openssl(dgst2,dgst2,Digest_length);
-		sm3_hash_openssl(dgst2,dgst2,Digest_length);
-
+		randstr(from1,31);
+		int len1=strlen(from1);
+		msg_init(from1,msg1);
+		sm3_hash_openssl(dgst1,msg1,len1);
+		randstr(from2,31);
+		int len2=strlen(from2);
+		msg_init(from2,msg2);
+		sm3_hash_openssl(dgst2,msg2,len2);
 		//print attempt times
 		count++;
 		if(count%5000000==0){
@@ -98,12 +97,15 @@ int main(){
 			output(dgst1);
 			printf("Digest2 is:");
 			output(dgst2);
-			printf("Message is :");
-			printf("%s\n",from1);
+
+			printf("Message1 is:");
+			output(msg1);
+			printf("Message2 is:");
+			output(msg2);
 			break;
 		}
 	}
 	end=clock();
 	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
-	cout << "rho attack front :"<<Compare_byte*8<<"bit(s)"<<endl;
+	cout << "birthday attack front :"<<Compare_byte*8<<"bit(s)"<<endl;
 }
