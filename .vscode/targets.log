@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 25 14:07:55 2022
+# Make data base, printed on Mon Jul 25 14:18:05 2022
 
 # Variables
 
@@ -111,7 +111,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 LESS = -R
 # environment
-WSL_INTEROP = /run/WSL/2735_interop
+WSL_INTEROP = /run/WSL/3925_interop
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -133,7 +133,7 @@ _ = /home/blackhole/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-c5182d4a-67a6-477e-910a-d4e35ea37ce1.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-535c1023-bf85-4776-8d8d-e5c801051883.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -161,9 +161,9 @@ WSL_DISTRO_NAME = Ubuntu-22.04
 
 # Directories
 
-# . (device 2080, inode 66447): 11 files, no impossibilities.
+# . (device 2080, inode 66447): 10 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 10 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -213,12 +213,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 195 B / avg = 10 B
-# current buf: size = 8162 B / used = 195 B / count = 19 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 18 / storage = 178 B / avg = 9 B
+# current buf: size = 8162 B / used = 178 B / count = 18 / avg = 9 B
 
-# strcache performance: lookups = 22 / hit rate = 13%
+# strcache performance: lookups = 21 / hit rate = 14%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Mon Jul 25 14:07:55 2022
+# Load=18/8192=0%, Rehash=0, Collisions=0/21=0%
+# Finished Make data base on Mon Jul 25 14:18:05 2022
 
  
