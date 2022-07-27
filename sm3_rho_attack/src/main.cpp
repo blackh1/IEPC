@@ -19,7 +19,7 @@ int sm3_hash_openssl(uint8_t *dgst,const void *msg,size_t len){
 	const EVP_MD *md=EVP_get_digestbyname("sm3");
 	EVP_MD_CTX *mdctx=EVP_MD_CTX_new();
 	if(!mdctx)	goto done;
-
+	
 	EVP_DigestInit_ex(mdctx,md,NULL);
 	EVP_DigestUpdate(mdctx,msg,len);
 	res=EVP_DigestFinal_ex(mdctx,dgst,NULL);
@@ -34,9 +34,10 @@ done:
  * 描述：		输入对应hash值，将结果以16进制输出
  * Input：	uint8_t *out
 ******************************/
-void output(uint8_t *out){
+void output(const void *out){
+	uint8_t *o=(uint8_t*)out;
 	for(int i=0;i<Digest_length;i++){
-		printf("%02x",out[i]);
+		printf("%02x",*(o+i));
 	}
 	printf("\n");
 }
@@ -46,8 +47,8 @@ void output(uint8_t *out){
  * 描述：		输入char类型的字符串(from)，将其转变为uint8_t类型的数组(dst)
  * Input：	char *from,uint8_t *dst
 ******************************/
-void msg_init(char *from,uint8_t *dst){
-	int len=strlen(from);
+void msg_init(unsigned char *from,uint8_t *dst){
+	int len=strlen((char*)from);
 	for(int i=0;i<len;i++){
 		dst[i]=from[i];
 	}
@@ -59,7 +60,7 @@ void msg_init(char *from,uint8_t *dst){
  * 描述：		随机生成给定长度(len)的字符串(str)
  * Input：	char *str, const int len
 ******************************/
-void randstr(char *str, const int len)
+void randstr(unsigned char *str, const int len)
 {
 	int i;
 	for (i = 0; i < len; ++i)
@@ -86,7 +87,7 @@ int main(){
 	srand((unsigned int)time(NULL));
 	uint8_t dgst1[32],dgst2[32];
 	int len1=rand()%128+32;
-	char *from1=new char[len1+1];
+	unsigned char *from1=new unsigned char[len1+1];
 	uint8_t *msg1=new uint8_t[len1+1],*msg2=new uint8_t[len1+1];
 	unsigned long long count=0;
 	start=clock();
@@ -119,6 +120,7 @@ int main(){
 			output(dgst2);
 			printf("Message is :");
 			printf("%s\n",from1);
+			// output(from1);
 			break;
 		}
 	}

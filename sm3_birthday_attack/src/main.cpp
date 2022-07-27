@@ -1,11 +1,11 @@
-#include "openssl/evp.h"
+#include <openssl/evp.h>
 #include <iostream>
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
 
 #define Digest_length 32
-#define Compare_byte 3		//bytes want to attack
+#define Compare_byte 2		//bytes want to attack
 
 using namespace std;
 
@@ -34,9 +34,10 @@ done:
  * 描述：		输入对应hash值，将结果以16进制输出
  * Input：	uint8_t *out
 ******************************/
-void output(uint8_t *out){
+void output(const void *out){
+	uint8_t *o=(uint8_t*)out;
 	for(int i=0;i<Digest_length;i++){
-		printf("%02x",out[i]);
+		printf("%02x",*(o+i));
 	}
 	printf("\n");
 }
@@ -46,8 +47,8 @@ void output(uint8_t *out){
  * 描述：		输入char类型的字符串(from)，将其转变为uint8_t类型的数组(dst)
  * Input：	char *from,uint8_t *dst
 ******************************/
-void msg_init(char *from,uint8_t *dst){
-	int len=strlen(from);
+void msg_init(unsigned char *from,uint8_t *dst){
+	int len=strlen((char*)from);
 	for(int i=0;i<len;i++){
 		dst[i]=from[i];
 	}
@@ -59,7 +60,7 @@ void msg_init(char *from,uint8_t *dst){
  * 描述：		随机生成给定长度(len)的字符串(str)
  * Input：	char *str, const int len
 ******************************/
-void randstr(char *str, const int len)
+void randstr(unsigned char *str, const int len)
 {
 	int i;
 	for (i = 0; i < len; ++i)
@@ -85,8 +86,8 @@ int main(){
 	clock_t start,end;
 	srand((unsigned int)time(NULL));
 	uint8_t dgst1[32],dgst2[32];
-	char *from1=new char[32];
-	char *from2=new char[32];
+	unsigned char *from1=new unsigned char[32];
+	unsigned char *from2=new unsigned char[32];
 	uint8_t *msg1=new uint8_t[32],*msg2=new uint8_t[32];
 	unsigned long long count=0;
 	start=clock();
@@ -94,11 +95,11 @@ int main(){
 	while(true){
 		//generate and hash
 		randstr(from1,31);
-		int len1=strlen(from1);
+		int len1=strlen((char*)from1);
 		msg_init(from1,msg1);
 		sm3_hash_openssl(dgst1,msg1,len1);
 		randstr(from2,31);
-		int len2=strlen(from2);
+		int len2=strlen((char*)from2);
 		msg_init(from2,msg2);
 		sm3_hash_openssl(dgst2,msg2,len2);
 		//print attempt times
@@ -116,8 +117,10 @@ int main(){
 
 			printf("Message1 is:");
 			output(msg1);
+			// printf("%s\n",from1);
 			printf("Message2 is:");
 			output(msg2);
+			// printf("%s\n",from2);
 			break;
 		}
 	}
