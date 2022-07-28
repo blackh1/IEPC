@@ -119,10 +119,10 @@ uint32_t K[64] = {
 static void sm3_compress_blocks(uint32_t digest[8],const void *data,size_t blocks);
 
 typedef struct SM3state_st{
-  uint32_t digest[8];
-  uint64_t nblocks;
-  unsigned char block[64];
-  int num;
+  uint32_t digest[8];       //存放摘要值
+  uint64_t nblocks;         //存放已经处理的块数
+  unsigned char block[64];  //存放剩余消息
+  int num;                  //存放剩余消息的长度
 }SM3_CTX;
 
 void sm3_init(SM3_CTX *ctx,uint32_t *IV){
