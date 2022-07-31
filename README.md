@@ -31,6 +31,14 @@ Innovation and Entrepreneurship Practice Course
 |implement length extension attack for SM3|
 |do your best to optimize SM3 implementation (software)(有数据依赖问题，运行效率很低)|
 
+## 项目说明
+
+- 代码使用C、C++完成
+
+- 各项目的具体说明在每个项目的文件夹下的`README.md`文件中
+
+- 完成项目为上面表格中的四个项目，其余项目未完成，所有完成项目均可运行并得到正确结果。
+
 ## Projects-List
 
 ### SM3

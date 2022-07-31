@@ -1,8 +1,12 @@
-# 说明
+# implement the naïve birthday attack of reduced SM3
 
-## 实验题目
+## 项目简介
 
-implement the naïve birthday attack of reduced SM3
+此项目针对SM3进行朴素生日攻击，通过不断生成字符串来生成摘要值，与预期进行对比，直到找到满足要求的消息。
+
+## 代码说明
+
+- 代码文件:`src/main.cpp`
 
 ## 运行指导
 

@@ -80,7 +80,7 @@ void randstr(unsigned char *str, const int len)
 	}
 	str[++i] = '\0';
 }
-
+#define TIMING
 int main(){
 	//设置计时变量
 	clock_t start,end;
@@ -90,7 +90,13 @@ int main(){
 	unsigned char *from2=new unsigned char[32];
 	uint8_t *msg1=new uint8_t[32],*msg2=new uint8_t[32];
 	unsigned long long count=0;
+
+#ifdef TIMING
+
 	start=clock();
+
+#endif
+
 	//start attack
 	while(true){
 		//generate and hash
@@ -124,7 +130,13 @@ int main(){
 			break;
 		}
 	}
+
+#ifdef TIMING
+
 	end=clock();
 	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+
+#endif
+
 	cout << "birthday attack front :"<<Compare_byte*8<<"bit(s)"<<endl;
 }
