@@ -150,8 +150,9 @@ void extension_attack(const void *hash_value,ull length1,ull length2,unsigned ch
 	memset(&ctx,0,sizeof(SM3_CTX));
 }
 
+// #define TIMING
+
 int main(){
-	clock_t start,end;
 	srand((unsigned int)time(NULL));
 	ull length=rand()%80+32;
 	unsigned char *from=new unsigned char[length+1];
@@ -165,7 +166,12 @@ int main(){
 	msg_init(from,msg);
 	uint8_t	hash_msg[Digest_length+exten_length];
 	uint8_t dgst1[Digest_length],dgst2[Digest_length],dgst3[Digest_length];
+
+#ifdef TIMING
+	clock_t start,end;
 	start=clock();
+#endif
+
 	unsigned char* new_msg=msg_merge(from,exten_msg,length,exten_length,new_length);
 	sm3(from,length,dgst1,IV);
 	printf("原始Hash值为:\t\t\t");
@@ -176,6 +182,9 @@ int main(){
 	extension_attack(dgst1,length,exten_length,exten_msg,dgst3);
 	printf("扩展攻击Hash值:\t\t\t");
 	output(dgst3,Digest_length);
+
+#ifdef TIMING
 	end=clock();
 	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+#endif
 }
