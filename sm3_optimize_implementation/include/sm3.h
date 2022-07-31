@@ -1,5 +1,12 @@
 #include <string.h>
 #include "stdint.h"
+#include <iostream>
+#include <string.h>
+#include <time.h>
+#include <stdlib.h>
+#include <math.h>
+#include <x86intrin.h>
+#include <immintrin.h>
 
 typedef unsigned int u32;
 typedef unsigned char u8;
@@ -10,6 +17,7 @@ typedef unsigned char u8;
 #define PUTU32(p,v)       ((p)[0]=(u8)((v)>>24),(p)[1]=(u8)((v)>>16),(p)[2]=(u8)((v)>>8),(p)[3]=(u8)(v))  //将u32放到u8数组中
 
 #define ROTL(x,n)         (((x)<<(n))|((x)>>(32-n)))  //循环左移 n bit
+#define SIMD_ROTL(x,n)    _mm_xor_si128(_mm_slli_epi32(x,n),_mm_srli_epi32(x,(32-n)))     //使用SIMD指令进行移位
 #define P0(x)             ((x)^(ROTL((x),9))^(ROTL((x),17)))    //P0(x)=x^(x<<9)^(x<<17)
 #define P1(x)             ((x)^(ROTL((x),15))^(ROTL((x),23)))   //P1(x)=x^(x<<15)^(x<<23)
 
@@ -18,6 +26,31 @@ typedef unsigned char u8;
 #define GG00(x,y,z)       ((x)^(y)^(z))
 // #define GG16(x,y,z)       ((((y)^(z))&(x))^(z))              //GmSSL中的GG16，并没读懂
 #define GG16(x,y,z)       (((x)&(y))|((~(x))&(z)))              //官方文档中的GG16
+
+//使用宏定义完成迭代循环
+//取消赋值操作，转变为手动替换输入
+#define R(A, B, C, D, E, F, G, H, xx)				                  \
+        SS1 = ROTL((ROTL(A, 12) + E + K[j]), 7);	          	\
+        SS2 = SS1 ^ ROTL(A, 12);				                      \
+        TT1 = FF##xx(A, B, C) + D + SS2 + (W[j] ^ W[j + 4]);	\
+        TT2 = GG##xx(E, F, G) + H + SS1 + W[j];			          \
+        B = ROTL(B, 9);					                              \
+        H = TT1;					                                  	\
+        F = ROTL(F, 19);	                            				\
+        D = P0(TT2);					                              	\
+        j++
+
+#define R8(A, B, C, D, E, F, G, H, xx)				\
+	      R(A, B, C, D, E, F, G, H, xx);				\
+	      R(H, A, B, C, D, E, F, G, xx);				\
+	      R(G, H, A, B, C, D, E, F, xx);				\
+        R(F, G, H, A, B, C, D, E, xx);				\
+        R(E, F, G, H, A, B, C, D, xx);				\
+        R(D, E, F, G, H, A, B, C, xx);				\
+        R(C, D, E, F, G, H, A, B, xx);				\
+        R(B, C, D, E, F, G, H, A, xx)  
+
+//预计算出移位后的结果
 
 #define K0	0x79cc4519U
 #define K1	0xf3988a32U
@@ -184,7 +217,10 @@ void sm3_final(SM3_CTX *ctx,unsigned char *digest){
   }
 }
 
-void sm3_compress_blocks(uint32_t digest[8],const void *data_from,size_t blocks){
+
+// #define SIMD
+
+static void sm3_compress_blocks(uint32_t digest[8],const void *data_from,size_t blocks){
   const unsigned char *data=(unsigned char*)data_from;
   //创建中间需要的临时变量
   uint32_t A,B,C,D,E,F,G,H;
@@ -192,17 +228,123 @@ void sm3_compress_blocks(uint32_t digest[8],const void *data_from,size_t blocks)
   uint32_t SS1,SS2,TT1,TT2;
   int j;
 
+
+#ifdef SIMD
+  __m128i X,T,R;
+	__m128i M = _mm_setr_epi32(0, 0, 0, 0xffffffff);
+	__m128i V = _mm_setr_epi8(3,2,1,0,7,6,5,4,11,10,9,8,15,14,13,12);
+#endif
   //开始进行迭代压缩
   while(blocks--){
     A=digest[0],B=digest[1],C=digest[2],D=digest[3];
     E=digest[4],F=digest[5],G=digest[6],H=digest[7];
 
+
+#ifdef SIMD
+/*
+  尝试SIMD，但是并没有解决W[j+3]和W[j]的数据依赖问题
+    for(j=0;j<16;j+=4){
+      X=_mm_loadu_si128((__m128i *)(data+j*4));
+      X=_mm_shuffle_epi8(X,V);
+      _mm_storeu_si128((__m128i *)(W+j),X);
+    }
+    for(j=16;j<68;j+=4){
+
+      X=_mm_loadu_si128((__m128i *)(W+j-3));
+      X=SIMD_ROTL(X,15);
+      T=_mm_loadu_si128((__m128i *)(W+j-9));
+      X=_mm_xor_si128(X,T);
+      T=_mm_loadu_si128((__m128i *)(W+j-16));
+      X=_mm_xor_si128(X,T);
+
+      //P1
+      T=SIMD_ROTL(X,15);
+      X=_mm_xor_si128(X,T);
+      T=SIMD_ROTL(T,8);
+      X=_mm_xor_si128(X,T);
+
+      T = _mm_loadu_si128((__m128i *)(W + j - 13));
+			T = SIMD_ROTL(T, 7);
+			X = _mm_xor_si128(X, T);
+			T = _mm_loadu_si128((__m128i *)(W + j - 6));
+			X = _mm_xor_si128(X, T);
+
+			R = _mm_shuffle_epi32(X, 0);
+			R = _mm_and_si128(R, M);
+			T = SIMD_ROTL(R, 15);
+			T = _mm_xor_si128(T, R);
+			T = SIMD_ROTL(T, 9);
+			R = _mm_xor_si128(R, T);
+			R = SIMD_ROTL(R, 6);
+			X = _mm_xor_si128(X, R);
+      // X=_mm_shuffle_epi8(X,VV);
+      _mm_storeu_si128((__m128i *)(W+j),X);
+    }
+    */
+
+   //以下代码参考GmSSL中的SIMD实现，其中先将W[j]置0，最后再进行处理，解决了数据依赖问题
+   //关于SIMD代码，已经全部阅读并理解。
+    for (j = 0; j < 16; j += 4) {
+			X = _mm_loadu_si128((__m128i *)(data + j * 4));
+			X = _mm_shuffle_epi8(X, V);
+			_mm_storeu_si128((__m128i *)(W + j), X);
+		}
+
+		for (j = 16; j < 68; j += 4) {
+			/* X = (W[j - 3], W[j - 2], W[j - 1], 0) */
+			X = _mm_loadu_si128((__m128i *)(W + j - 3));
+			X = _mm_andnot_si128(M, X);
+
+			X = SIMD_ROTL(X, 15);
+			T = _mm_loadu_si128((__m128i *)(W + j - 9));
+			X = _mm_xor_si128(X, T);
+			T = _mm_loadu_si128((__m128i *)(W + j - 16));
+			X = _mm_xor_si128(X, T);
+
+			/* P1() */
+			T = SIMD_ROTL(X, (23 - 15));
+			T = _mm_xor_si128(T, X);
+			T = SIMD_ROTL(T, 15);
+			X = _mm_xor_si128(X, T);
+
+			T = _mm_loadu_si128((__m128i *)(W + j - 13));
+			T = SIMD_ROTL(T, 7);
+			X = _mm_xor_si128(X, T);
+			T = _mm_loadu_si128((__m128i *)(W + j - 6));
+			X = _mm_xor_si128(X, T);
+
+			/* W[j + 3] ^= P1(ROL32(W[j + 1], 15)) */
+			R = _mm_shuffle_epi32(X, 0);
+			R = _mm_and_si128(R, M);
+			T = SIMD_ROTL(R, 15);
+			T = _mm_xor_si128(T, R);
+			T = SIMD_ROTL(T, 9);
+			R = _mm_xor_si128(R, T);
+			R = SIMD_ROTL(R, 6);
+			X = _mm_xor_si128(X, R);
+
+			_mm_storeu_si128((__m128i *)(W + j), X);
+    }
+#else
+
     //消息初始化
     for(j=0;j<16;j++) W[j]=GETU32(data+j*4);    
     for(;j<68;j++)    W[j]=P1(W[j-16]^W[j-9]^ROTL(W[j-3],15))^ROTL(W[j-13],7)^W[j-6];
-
+#endif
     j=0;
 
+#define UNROLL                      //全展开的开关
+
+#ifdef UNROLL
+    R8(A,B,C,D,E,F,G,H,00);
+    R8(A,B,C,D,E,F,G,H,00);
+    R8(A,B,C,D,E,F,G,H,16);
+    R8(A,B,C,D,E,F,G,H,16);
+    R8(A,B,C,D,E,F,G,H,16);
+    R8(A,B,C,D,E,F,G,H,16);
+    R8(A,B,C,D,E,F,G,H,16);
+    R8(A,B,C,D,E,F,G,H,16);
+#else
     for(;j<16;j++){
       SS1=ROTL((ROTL(A,12)+E+K[j]),7);
       SS2=SS1^ROTL(A,12);
@@ -232,6 +374,7 @@ void sm3_compress_blocks(uint32_t digest[8],const void *data_from,size_t blocks)
 			F = E;
 			E = P0(TT2);
 		}
+#endif
     digest[0] ^= A;
 		digest[1] ^= B;
 		digest[2] ^= C;

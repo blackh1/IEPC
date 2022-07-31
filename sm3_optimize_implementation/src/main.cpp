@@ -1,11 +1,6 @@
 #include <openssl/evp.h>
-// #include "crypto/evp/evp_local.h"
 #include "sm3.h"
-#include <iostream>
-#include <string.h>
-#include <time.h>
-#include <stdlib.h>
-#include <math.h>
+
 
 #define Digest_length 32
 #define Compare_byte 1		//bytes want to attack
@@ -153,29 +148,20 @@ void extension_attack(const void *hash_value,ull length1,ull length2,unsigned ch
 int main(){
 	clock_t start,end;
 	srand((unsigned int)time(NULL));
-	ull length=rand()%80+32;
+	ull length=1024;
 	unsigned char *from=new unsigned char[length+1];
-	unsigned char *exten_msg=(unsigned char*)"this is length extension attack!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.";
-	ull exten_length=strlen((char*)exten_msg);
 	ull int new_length=0;
 	uint8_t *msg=new uint8_t[length+1];
 	randstr(from,length);
 	// from=(unsigned char*)"abc";
 	// length=3;
 	msg_init(from,msg);
-	uint8_t	hash_msg[Digest_length+exten_length];
 	uint8_t dgst1[Digest_length],dgst2[Digest_length],dgst3[Digest_length];
 	start=clock();
-	unsigned char* new_msg=msg_merge(from,exten_msg,length,exten_length,new_length);
-	sm3(from,length,dgst1,IV);
-	printf("原始Hash值为:\t\t\t");
-	output(dgst1,Digest_length);
-	sm3(new_msg,new_length,dgst2,IV);
-	printf("新消息Hash(m|padding|m3):\t");
-	output(dgst2,Digest_length);
-	extension_attack(dgst1,length,exten_length,exten_msg,dgst3);
-	printf("扩展攻击Hash值:\t\t\t");
-	output(dgst3,Digest_length);
+	for(int i=0;i<0xfffffe;i++){
+		sm3(from,length,dgst2,IV);
+	}
 	end=clock();
+	output(dgst2,Digest_length);
 	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
 }

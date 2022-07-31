@@ -4,7 +4,7 @@
 
 implement length extension attack for SM3
 
-## 运行
+## 运行指导
 
 ```bash
 mkdir build
@@ -29,3 +29,7 @@ cost time is 7.2e-05s
 - 注意事项
   - 在转换原始消息摘要值时，注意大小端问题。
   - 由于使用opensssl实现sm3无法自定义IV向量，也就无法将原始消息的摘要值放入其中进行攻击，所以参考了GmSSL中的sm3实现方法。
+
+## 运行截图
+
+![image](http://other-file.blackh1.top/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E5%AE%9E%E8%B7%B5/SM3_length_extension_attack.png)

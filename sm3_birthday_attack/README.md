@@ -4,7 +4,7 @@
 
 implement the naïve birthday attack of reduced SM3
 
-## 运行
+## 运行指导
 
 ```bash
 mkdir build
@@ -47,3 +47,7 @@ Message2 is:4f6852314e61344869775732315635746d3543323836453331697a3335426900
 cost time is 8.00296s
 birthday attack front :24bit(s)
 ```
+
+## 运行截图
+
+![image](http://other-file.blackh1.top/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E5%AE%9E%E8%B7%B5/SM3_birthday_attack.png)

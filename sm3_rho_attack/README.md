@@ -4,7 +4,7 @@
 
 implement the Rho method of reduced SM3
 
-## 运行
+## 运行指导
 
 ```bash
 mkdir build
@@ -47,3 +47,7 @@ Message is :mjbk75yt47HaYHqwwCHlN6WFZs7pFCz
 cost time is 30.7174s
 rho attack front :24bit(s)
 ```
+
+## 运行截图
+
+![image](http://other-file.blackh1.top/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E5%AE%9E%E8%B7%B5/SM3_rho_attack.png)

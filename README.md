@@ -2,6 +2,8 @@
 
 Innovation and Entrepreneurship Practice Course
 
+- [小组成员](#小组成员)
+- [已完成项目](#已完成项目)
 - [Project-List](#projects-list)
   - [SM3](#sm3)
   - [SM2](#sm2)
@@ -10,6 +12,25 @@ Innovation and Entrepreneurship Practice Course
   - [Real-world cryptanalysis](#real-world-cryptanalysis)
   - [Real-world-z-SNARKs](#real-world-zk-snarks)
 
+## 小组成员
+
+| key         | value        |
+| ---------- | ------------- |
+| 姓名        | 关钧         |
+| 学号        | 201900460012|
+| git账户名称 | blackh1      |
+
+## 已完成项目
+
+完成项目如下所示，均为个人完成。
+
+|项目名称|
+|-----|
+|implement the naïve birthday attack of reduced SM3|
+|implement the Rho method of reduced SM3|
+|implement length extension attack for SM3|
+|do your best to optimize SM3 implementation (software)(有数据依赖问题，运行效率很低)|
+
 ## Projects-List
 
 ### SM3
@@ -17,7 +38,7 @@ Innovation and Entrepreneurship Practice Course
 - [x] Project:implement the naïve birthday attack of reduced SM3
 - [x] Project:implement the Rho method of reduced SM3
 - [x] Project:implement length extension attack for SM3,SHA256,etc
-- [ ] Project:do your best to optimize SM3 implementation (software)
+- [x] Project:do your best to optimize SM3 implementation (software)
 - [ ] Project:Impl Merkle Tree following RFC6962
   - Construct a Merkle tree with 10w leaf nodes
   - Build inclusion proof for specified element
@@ -54,7 +75,7 @@ Innovation and Entrepreneurship Practice Course
 
 - [ ] Project:Project Idea
   1. Write a circuit to prove that your CET6 grade is larger than 425.
-    a. Your gradeinfo is like(cn_id,grade,year,sig_by_moe).These grades are published as commitments onchain by MoE.
-    b. When you got an interview from an employer,you can prove to them that you have passed the exam without letting them know the exact grade.
+      a. Your gradeinfo is like(cn_id,grade,year,sig_by_moe).These grades are published as commitments onchain by MoE.
+      b. When you got an interview from an employer,you can prove to them that you have passed the exam without letting them know the exact grade.
   2. The commitment scheme used by MoE is SHA256-bases.
-    a. commit=SHA256(cn_id,grade,sig_by_moe,r)
+      a. commit=SHA256(cn_id,grade,sig_by_moe,r)
