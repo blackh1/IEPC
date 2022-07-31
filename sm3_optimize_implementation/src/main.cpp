@@ -146,7 +146,6 @@ void extension_attack(const void *hash_value,ull length1,ull length2,unsigned ch
 }
 
 int main(){
-	clock_t start,end;
 	srand((unsigned int)time(NULL));
 	ull length=1024;
 	unsigned char *from=new unsigned char[length+1];
@@ -157,11 +156,18 @@ int main(){
 	// length=3;
 	msg_init(from,msg);
 	uint8_t dgst1[Digest_length],dgst2[Digest_length],dgst3[Digest_length];
+
+#ifdef TIMING
+	clock_t start,end;
 	start=clock();
+#endif
+
 	for(int i=0;i<0xfffffe;i++){
 		sm3(from,length,dgst2,IV);
 	}
+#ifdef TIMING
 	end=clock();
 	output(dgst2,Digest_length);
 	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+#endif
 }
