@@ -81,16 +81,23 @@ void randstr(unsigned char *str, const int len)
 	str[++i] = '\0';
 }
 
+#define TIMING
+
 int main(){
-	//设置计时变量
-	clock_t start,end;
+
 	srand((unsigned int)time(NULL));
 	uint8_t dgst1[32],dgst2[32];
 	int len1=rand()%128+32;
 	unsigned char *from1=new unsigned char[len1+1];
 	uint8_t *msg1=new uint8_t[len1+1],*msg2=new uint8_t[len1+1];
 	unsigned long long count=0;
+
+#ifdef TIMING
+	//设置计时变量
+	clock_t start,end;
 	start=clock();
+#endif
+
 	randstr(from1,len1);
 	// from1="hello,here is guanjun.this is a sm3 rho attack exp.";
 	msg_init(from1,msg1);
@@ -124,7 +131,9 @@ int main(){
 			break;
 		}
 	}
+#ifdef TIMING
 	end=clock();
 	cout << "cost time is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+#endif
 	cout << "rho attack front :"<<Compare_byte*8<<"bit(s)"<<endl;
 }
